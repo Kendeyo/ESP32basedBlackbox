@@ -30,6 +30,8 @@ void setup() {
 }
 
 void loop() {
+
+  unsigned long currentMillis = millis(); // Get the current time
   // Read DHT22 data
   humidity = dht.readHumidity();
   temperature = dht.readTemperature();
@@ -74,13 +76,15 @@ void loop() {
     tone(BUZZER_PIN, 1000, 3000);  // Activate buzzer
     }//end of if
 
-  if (abs(tilt) > TILT_THRESHOLD) {
+  if ((abs(tilt) > TILT_THRESHOLD1) ||  (abs(tilt) < TILT_THRESHOLD2)) {
     Serial.println("Tilt detected! Triggering alert...");
     tone(BUZZER_PIN, 2000, 3000);  // Activate buzzer
     }//end of if
 
   if (temperature > TEMP_THRESHOLD || humidity > HUMIDITY_THRESHOLD) {
     Serial.println("High temp/humidity detected! Triggering alert...");
+    //Serial.print("Temperature: ");Serial.println(temperature);  //for debugg
+    //Serial.print("Humidity: ");Serial.println(humidity);        //for debugg
     tone(BUZZER_PIN, 1500, 3000);  // Activate buzzer
     }//end of if
 
@@ -89,16 +93,11 @@ void loop() {
     if (gps.encode(gpsSerial.read()))   // encode gps data
     {
       
-      Serial.print("SATS: ");
-      Serial.println(gps.satellites.value());
-      Serial.print("LAT: ");
-      Serial.println(gps.location.lat(), 6);
-      Serial.print("LONG: ");
-      Serial.println(gps.location.lng(), 6);
-      Serial.print("ALT: ");
-      Serial.println(gps.altitude.meters());
-      Serial.print("SPEED: ");
-      Serial.println(gps.speed.mps());
+      Serial.print("SATS: ");Serial.println(gps.satellites.value());
+      Serial.print("LAT: ");Serial.println(gps.location.lat(), 6);
+      Serial.print("LONG: ");Serial.println(gps.location.lng(), 6);
+      Serial.print("ALT: ");Serial.println(gps.altitude.meters());
+      Serial.print("SPEED: ");Serial.println(gps.speed.mps());
 
       uint8_t sats = gps.satellites.value(); 
       double lat = gps.location.lat();
@@ -114,10 +113,7 @@ void loop() {
       Serial.println(longtbf);
  
       
-      Serial.print("Date: ");
-      Serial.print(gps.date.day()); Serial.print("/");
-      Serial.print(gps.date.month()); Serial.print("/");
-      Serial.println(gps.date.year());
+      Serial.print("Date: ");Serial.print(gps.date.day()); Serial.print("/");Serial.print(gps.date.month()); Serial.print("/");Serial.println(gps.date.year());
 
       //-------------------------------------------
       uint8_t day = gps.date.day();  // 
@@ -145,9 +141,14 @@ void loop() {
     }//end of if
   }//end of GPS while
 
-  // Send data to ThingSpeak regardless of alerts
-  sendToThingspeak();
+ 
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis; // Save the last time the action was performed
+    // Send data to ThingSpeak regardless of alerts
+   sendToThingspeak();
+  }//end of if
 
-  delay(10000);  // Wait 20 seconds between updates (this can be adjusted based on your needs)
-}
+  delay(100);  //for stability
+
+}//end of main loop
 

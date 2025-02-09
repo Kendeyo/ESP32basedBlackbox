@@ -28,9 +28,10 @@
 
 // Thresholds
 #define TEMP_THRESHOLD 35
-#define HUMIDITY_THRESHOLD 70
-#define ACCEL_THRESHOLD 15  // Acceleration threshold in m/s^2 (e.g., a crash)
-#define TILT_THRESHOLD 30   // Tilt threshold in degrees
+#define HUMIDITY_THRESHOLD 60
+#define ACCEL_THRESHOLD 40  // Acceleration threshold in m/s^2 (e.g., a crash)
+#define TILT_THRESHOLD1 90   // Tilt threshold in degrees
+#define TILT_THRESHOLD2 30   // Tilt threshold in degrees
 #define DHTTYPE DHT22
 
 
@@ -56,6 +57,10 @@ extern char timebf[9];
 extern char latbf[18];
 extern char longtbf[18];
 extern char satsbf[8];
+
+
+unsigned long previousMillis = 0; // Stores the last time the action was performed
+const unsigned long interval = 15000; // Interval in milliseconds (15 seconds)
 
 ///////////////////////////////////////////////////////////////////////////////////
 ////Funcntion prototypes  /////////////////////////////////////////////////////////

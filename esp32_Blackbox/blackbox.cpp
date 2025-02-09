@@ -92,13 +92,14 @@ void connectToWifi(){
 // @return: void
 ////////////////////////////////////////////////////////////////////////
 void sendToThingspeak(){
-  ThingSpeak.setField(1, temperature);
-  ThingSpeak.setField(2, humidity);
-  ThingSpeak.setField(3, a.acceleration.x);  // Acceleration X
-  ThingSpeak.setField(4, a.acceleration.y);  // Acceleration Y
-  ThingSpeak.setField(5, a.acceleration.z);  // Acceleration Z
-  ThingSpeak.setField(6, tilt);              // Tilt angle
+  ThingSpeak.setField(1, temperature);      // temperature
+  ThingSpeak.setField(2, a.acceleration.x); // Acceleration X
+  ThingSpeak.setField(3, a.acceleration.y); // Acceleration Y 
+  ThingSpeak.setField(4, a.acceleration.z); // Acceleration Z
+  ThingSpeak.setField(5, tilt);             // Tilt angle
+  ThingSpeak.setField(6, vibrationState);    // Vibration sensor state          
   ThingSpeak.setField(7, vibrationState);    // Vibration sensor state
+  ThingSpeak.setField(8, vibrationState);    // Vibration sensor state
 
   
   int responseCode = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
