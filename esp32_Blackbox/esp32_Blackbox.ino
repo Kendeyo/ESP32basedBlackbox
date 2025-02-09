@@ -8,6 +8,12 @@ Adafruit_MPU6050 mpu; // MPU6050 setup
 TinyGPSPlus gps;
 
 extern sensors_event_t a, g, temp;
+extern double lat;
+extern double longtd;
+
+unsigned long currentMillis;
+unsigned long previousMillis = 0; // Stores the last time the action was performed
+const unsigned long interval = 15000; // Interval in milliseconds (15 seconds)
 
 void setup() {
   pinConfig();
@@ -16,8 +22,6 @@ void setup() {
   gpsSerial.begin(9600);  // connect gps sensor
   dht.begin();
   connectToWifi();// Connect to Wi-Fi
- 
-
   ThingSpeak.begin(client);
 
   // Initialize MPU6050
@@ -26,12 +30,11 @@ void setup() {
     while (1) delay(10);
   }
   Serial.println("MPU6050 Initialized!");
-    // Read MPU6050 data
 }
 
 void loop() {
 
-  unsigned long currentMillis = millis(); // Get the current time
+  currentMillis = millis(); // Get the current time
   // Read DHT22 data
   humidity = dht.readHumidity();
   temperature = dht.readTemperature();
@@ -91,29 +94,31 @@ void loop() {
 
   while (gpsSerial.available()){
     if (gps.encode(gpsSerial.read()))   // encode gps data
-    {
-      
-      Serial.print("SATS: ");Serial.println(gps.satellites.value());
-      Serial.print("LAT: ");Serial.println(gps.location.lat(), 6);
-      Serial.print("LONG: ");Serial.println(gps.location.lng(), 6);
-      Serial.print("ALT: ");Serial.println(gps.altitude.meters());
-      Serial.print("SPEED: ");Serial.println(gps.speed.mps());
+    { 
+      #if 1 //make 0 to disable the prints
+        Serial.print("SATS: ");Serial.println(gps.satellites.value());
+        Serial.print("LAT: ");Serial.println(gps.location.lat(), 6);
+        Serial.print("LONG: ");Serial.println(gps.location.lng(), 6);
+        Serial.print("ALT: ");Serial.println(gps.altitude.meters());
+        Serial.print("SPEED: ");Serial.println(gps.speed.mps());
+      #endif
 
       uint8_t sats = gps.satellites.value(); 
-      double lat = gps.location.lat();
-      double longtd = gps.location.lng();
+      lat = gps.location.lat();
+      longtd = gps.location.lng();
       double speed = gps.speed.mps();
 
       sprintf(satsbf, "SATS: %d", sats);
       sprintf(latbf, "LAT : %.6f",lat);
       sprintf(longtbf, "LONG : %.6f", longtd);
 
-      Serial.println(satsbf);
-      Serial.println(latbf);
-      Serial.println(longtbf);
- 
-      
-      Serial.print("Date: ");Serial.print(gps.date.day()); Serial.print("/");Serial.print(gps.date.month()); Serial.print("/");Serial.println(gps.date.year());
+
+      #if 1
+        Serial.println(satsbf);
+        Serial.println(latbf);
+        Serial.println(longtbf); 
+        Serial.print("Date: ");Serial.print(gps.date.day()); Serial.print("/");Serial.print(gps.date.month()); Serial.print("/");Serial.println(gps.date.year());
+      #endif
 
       //-------------------------------------------
       uint8_t day = gps.date.day();  // 

@@ -15,6 +15,8 @@
  float temperature =0;
  uint16_t vibrationState;
  sensors_event_t a, g, temp;
+ double lat =0;
+ double longtd = 0;
 
 // Wi-Fi credentials
  const char* ssid = "Bytelux";                  //your SSID name
@@ -97,11 +99,11 @@ void sendToThingspeak(){
   ThingSpeak.setField(3, a.acceleration.y); // Acceleration Y 
   ThingSpeak.setField(4, a.acceleration.z); // Acceleration Z
   ThingSpeak.setField(5, tilt);             // Tilt angle
-  ThingSpeak.setField(6, vibrationState);    // Vibration sensor state          
-  ThingSpeak.setField(7, vibrationState);    // Vibration sensor state
-  ThingSpeak.setField(8, vibrationState);    // Vibration sensor state
+  ThingSpeak.setField(6, vibrationState);   // Vibration sensor state          
+  ThingSpeak.setField(7, (float)lat);       // latitude
+  ThingSpeak.setField(8, (float)longtd);    // longitude
 
-  
+
   int responseCode = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
   if (responseCode == 200) {
     Serial.println("Channel update successful.");
