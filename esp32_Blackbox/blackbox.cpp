@@ -1,22 +1,32 @@
-
+////////////////////////////////////////////////////////////////////////////////////
+///////////Header Files/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 #include <Arduino.h>
 #include "blackbox.h"
 
- unsigned long myChannelNumber = 2833649; 
- const char * myWriteAPIKey = "QE46CI8UUR09UALY"; 
+///////////////////////////////////////////////////////////////////////////////////
+//// variable definitions  ////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 
+ unsigned long myChannelNumber = 2833649;         // your ThingsSpeakchannel ID
+ const char * myWriteAPIKey = "QE46CI8UUR09UALY"; // your ThinsSpeak Write API Key
  float tilt = 0;
  float humidity =0;
  float temperature =0;
  uint16_t vibrationState;
-
+  sensors_event_t a, g, temp;
 
 // Wi-Fi credentials
- const char* ssid = "Bytelux";
- const char* password = "Kennedy7730";
+ const char* ssid = "Bytelux";                  //your SSID name
+ const char* password = "Kennedy7730";          //your password
 
- sensors_event_t a, g, temp;
 
+////////////////////////////////////////////////////////////////////////
+// Name: systemInit()
+// Function: This function  initializes the system using beeps
+// @param1: None
+// @return: void
+////////////////////////////////////////////////////////////////////////
 
 void systemInit(){
   digitalWrite(BUZZER_PIN, HIGH);
@@ -40,12 +50,25 @@ void systemInit(){
   digitalWrite(BUZZER_PIN, LOW);
 }
 
+////////////////////////////////////////////////////////////////////////
+// Name: pinConfig()
+// Function: This function  configures the pins for the system
+// @param1: None
+// @return: void
+////////////////////////////////////////////////////////////////////////
 void pinConfig(){
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(VIBRATION_SENSOR_PIN, INPUT);
   Serial.println("Vehicle Monitoring System Initialized!");
 }
 
+
+////////////////////////////////////////////////////////////////////////
+// Name: connectToWifi()
+// Function: This function  connects the system to WiFi
+// @param1: None
+// @return: void
+////////////////////////////////////////////////////////////////////////
 void connectToWifi(){
  WiFi.mode(WIFI_STA);
   while (WiFi.status() != WL_CONNECTED) {
@@ -56,6 +79,13 @@ void connectToWifi(){
   Serial.println("Connected to WiFi!");
 }
 
+
+////////////////////////////////////////////////////////////////////////
+// Name: connectToWifi()
+// Function: This function sends collected data to ThingSpeak
+// @param1: None
+// @return: void
+////////////////////////////////////////////////////////////////////////
 void sendToThingspeak(){
   ThingSpeak.setField(1, temperature);
   ThingSpeak.setField(2, humidity);
