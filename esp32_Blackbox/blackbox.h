@@ -1,3 +1,6 @@
+#ifndef BLACKBOX_H
+#define BLACKBOX_H
+
 ////////////////////////////////////////////////////////////////////////////////////
 ///////////Header Files/////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
@@ -23,10 +26,30 @@
 #define HUMIDITY_THRESHOLD 70
 #define ACCEL_THRESHOLD 15  // Acceleration threshold in m/s^2 (e.g., a crash)
 #define TILT_THRESHOLD 30   // Tilt threshold in degrees
+#define DHTTYPE DHT22
 
+extern unsigned long myChannelNumber; 
+extern const char * myWriteAPIKey; 
+
+extern float tilt ;
+extern float humidity ;
+extern float temperature;
+extern uint16_t vibrationState;
+
+
+// Wi-Fi credentials
+extern const char* ssid;
+extern const char* password;
+
+extern sensors_event_t a, g, temp;
 
 ///////////////////////////////////////////////////////////////////////////////////
 ////Funcntion prototypes  /////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
 void systemInit();
+void pinConfig();
+void connectToWifi();
+void sendToThingspeak();
+
+#endif

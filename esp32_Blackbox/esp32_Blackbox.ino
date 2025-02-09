@@ -1,39 +1,19 @@
 #include "blackbox.h"
 
-
-// Wi-Fi credentials
-const char* ssid = "Bytelux";
-const char* password = "Kennedy7730";
-
-WiFiClient client;
-
-unsigned long myChannelNumber = 2833649; 
-const char * myWriteAPIKey = "QE46CI8UUR09UALY"; 
-
-
-
-// DHT22 sensor setup
-#define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
 
-// MPU6050 setup
-Adafruit_MPU6050 mpu;
+WiFiClient client;
+Adafruit_MPU6050 mpu; // MPU6050 setup
+
+
 
 void setup() {
+  pinConfig();
+  systemInit();
   Serial.begin(115200);
   dht.begin();
-  pinMode(BUZZER_PIN, OUTPUT);
-  pinMode(VIBRATION_SENSOR_PIN, INPUT);
-  Serial.println("Vehicle Monitoring System Initialized!");
-
-  // Connect to Wi-Fi
-  WiFi.mode(WIFI_STA);
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print("Connecting to WiFi...");
-    WiFi.begin(ssid, password);
-    delay(5000);
-  }
-  Serial.println("Connected to WiFi!");
+  connectToWifi();// Connect to Wi-Fi
+ 
 
   ThingSpeak.begin(client);
 
@@ -43,16 +23,17 @@ void setup() {
     while (1) delay(10);
   }
   Serial.println("MPU6050 Initialized!");
+    // Read MPU6050 data
 }
 
 void loop() {
   // Read DHT22 data
-  float humidity = dht.readHumidity();
-  float temperature = dht.readTemperature();
+  humidity = dht.readHumidity();
+  temperature = dht.readTemperature();
   
   
 // Read the state of the SW420 vibration sensor
-  int vibrationState = digitalRead(VIBRATION_SENSOR_PIN);
+  vibrationState = digitalRead(VIBRATION_SENSOR_PIN);
 
   // Check for valid readings
   if (isnan(humidity) || isnan(temperature)) {
@@ -61,12 +42,12 @@ void loop() {
   }
 
   // Read MPU6050 data
-  sensors_event_t a, g, temp;
+  //sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
 
 /////////////////////////////////////////////////////////
-//////////to save CPU cycles///////////////////////////
-///////////////////////////////////////////////////////
+//////////to save CPU cycles////////////////////////////
+////////////////////////////////////////////////////////
 
   #if 0  //make 1 to print on serial
 
@@ -82,7 +63,7 @@ void loop() {
   #endif
 
 
-  float tilt = atan2(a.acceleration.y, a.acceleration.x) * (180 / PI);  // Calculate tilt angle in degrees
+ tilt = atan2(a.acceleration.y, a.acceleration.x) * (180 / PI);  // Calculate tilt angle in degrees
 
   // Logic for buzzer - only activate when thresholds are exceeded
   if (abs(a.acceleration.x) > ACCEL_THRESHOLD || abs(a.acceleration.y) > ACCEL_THRESHOLD || abs(a.acceleration.z) > ACCEL_THRESHOLD) {
@@ -100,25 +81,8 @@ void loop() {
   }
 
   // Send data to ThingSpeak regardless of alerts
-  ThingSpeak.setField(1, temperature);
-  ThingSpeak.setField(2, humidity);
-  ThingSpeak.setField(3, a.acceleration.x);  // Acceleration X
-  ThingSpeak.setField(4, a.acceleration.y);  // Acceleration Y
-  ThingSpeak.setField(5, a.acceleration.z);  // Acceleration Z
-  ThingSpeak.setField(6, tilt);              // Tilt angle
-  ThingSpeak.setField(7, vibrationState);    // Vibration sensor state
-
-
-  int responseCode = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-  if (responseCode == 200) {
-    Serial.println("Channel update successful.");
-  } else {
-    Serial.println("Failed to update channel. HTTP error code " + String(responseCode));
-  }
+  sendToThingspeak();
 
   delay(20000);  // Wait 20 seconds between updates (this can be adjusted based on your needs)
 }
 
-void systemInit(){
-  
-}
