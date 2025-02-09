@@ -111,3 +111,4 @@ void sendToThingspeak(){
     Serial.println("Failed to update channel. HTTP error code " + String(responseCode));
   }
 }
+
