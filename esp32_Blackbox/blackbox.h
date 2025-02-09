@@ -11,6 +11,9 @@
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
+#include <TinyGPS++.h>
+#include <SoftwareSerial.h>
+#include <string.h>
 
 ///////////////////////////////////////////////////////////////////////////////////
 //// MACROS and Definitions////////////////////////////////////////////////////////
@@ -20,6 +23,8 @@
 #define DHTPIN 4
 #define VIBRATION_SENSOR_PIN 35
 #define BUZZER_PIN 13
+#define rxGPS 25         
+#define txGPS 26     
 
 // Thresholds
 #define TEMP_THRESHOLD 35
@@ -38,12 +43,19 @@ extern float tilt ;
 extern float humidity ;
 extern float temperature;
 extern uint16_t vibrationState;
-extern sensors_event_t a, g, temp;
+
 
 // Wi-Fi credentials
 extern const char* ssid;
 extern const char* password;
 
+
+extern char datebf[13];
+extern char timebf[9];
+
+extern char latbf[18];
+extern char longtbf[18];
+extern char satsbf[8];
 
 ///////////////////////////////////////////////////////////////////////////////////
 ////Funcntion prototypes  /////////////////////////////////////////////////////////

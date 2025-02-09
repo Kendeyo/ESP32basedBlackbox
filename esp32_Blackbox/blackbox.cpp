@@ -14,13 +14,18 @@
  float humidity =0;
  float temperature =0;
  uint16_t vibrationState;
-  sensors_event_t a, g, temp;
+ sensors_event_t a, g, temp;
 
 // Wi-Fi credentials
  const char* ssid = "Bytelux";                  //your SSID name
  const char* password = "Kennedy7730";          //your password
 
+ char datebf[13];
+ char timebf[9];
 
+ char latbf[18];
+ char longtbf[18];
+ char satsbf[8];
 ////////////////////////////////////////////////////////////////////////
 // Name: systemInit()
 // Function: This function  initializes the system using beeps
