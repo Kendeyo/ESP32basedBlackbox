@@ -27,7 +27,9 @@
 #define VIBRATION_SENSOR_PIN 35
 #define BUZZER_PIN 13
 #define rxGPS 25         
-#define txGPS 26   
+#define txGPS 26  
+#define rxGSM 16
+#define txGSM 17
 #define SD_CS 5  
 
 // Thresholds
@@ -51,9 +53,8 @@ extern uint16_t vibrationState;
 
 
 // Wi-Fi credentials
-extern const char* ssid;
+extern const char* ssid; 
 extern const char* password;
-
 
 extern char datebf[13];
 extern char timebf[9];
@@ -63,13 +64,27 @@ extern char longtbf[18];
 extern char satsbf[8];
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////
-////Funcntion prototypes  /////////////////////////////////////////////////////////
+////my definitions  ///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+enum alerts{
+  ACCELERATION,
+  TILT,
+  TEMPERATURE
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+////Function prototypes  /////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
 void systemInit();
 void pinConfig();
 void connectToWifi();
 void sendToThingspeak();
+void sendMessage();
+void checkparam();
+void logSDCard();
 
 #endif
