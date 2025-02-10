@@ -223,7 +223,7 @@ void  sdCardSetup(){
   if(!file) {
     Serial.println("File doens't exist");
     Serial.println("Creating file...");
-    writeFile(SD, "/data.csv", "Reading ID, Time, Temberature, Tilt, VibrationState, Latitude, Longitude \r\n");
+    writeFile(SD, "/data.csv", "Reading ID, Time, Temperature, Tilt, VibrationState, Latitude, Longitude \r\n");
   }
   else {
     Serial.println("File already exists");  
