@@ -38,6 +38,8 @@ The Top and Bottom models are as shown:
 
 ## Prototype
 The assembeled protoboard:
+![WhatsApp Image 2025-02-11 at 20 32 07_6cc43ec6](https://github.com/user-attachments/assets/be5487cf-2fc5-47db-9a37-aebdf2c35b56)
+
 ![alt text](<prototype.jpg>)
 
 ## License
