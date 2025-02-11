@@ -22,13 +22,13 @@ The block diagram of the system is as shown below:
 
 ## PCB
 The PCB is designed using KiCAD. The major hardware include:
-1.ESP32-S3 -this is the main "brain" of the system. Its specifications, particularly speed & RF(WiFi) capabilities made it suitable for the use case
-2.mpu6050 - measures the acceleration, tilt, and speed
-3.L80 -R GPS module - connects with satellits to get the latitude and longitude coordinates of the device
-4.SIM800L GSM Module - used for its GSM to send instant alerts via SMS. It is GPRS enabled and can be used as backup when there is no WiFi
-5.buzzer - auditory alerts for the driver & passengers on board
-6.temperature sensor(DHT used here) - external slot is allocated to attach an external temperatures sensor
-7.SD card connector - for mounting SD card
+1. ESP32-S3 -this is the main "brain" of the system. Its specifications, particularly speed & RF(WiFi) capabilities made it suitable for the use case
+2. mpu6050 - measures the acceleration, tilt, and speed
+3. L80 -R GPS module - connects with satellits to get the latitude and longitude coordinates of the device
+4. SIM800L GSM Module - used for its GSM to send instant alerts via SMS. It is GPRS enabled and can be used as backup when there is no WiFi
+5. buzzer - auditory alerts for the driver & passengers on board
+6. temperature sensor(DHT used here) - external slot is allocated to attach an external temperatures sensor
+7. SD card connector - for mounting SD card
 
 
 The Top and Bottom models are as shown:
