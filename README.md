@@ -11,7 +11,7 @@ A Wireless Blackbox for PSV monitoring, tailored for "Matatu" operators. The sys
 Monitored parameters are sent to a cloud palatform(ThingsPeak for this case) and also locally stored on the onboard SD card memory.
 
 ## Table of Contents
-- [Block Diagram](#Block Diagram)
+- [Block Diagram](#Block_Diagram)
 - [PCB](#PCB)
 - [Prototype](#Prototype)
 - [License](#license)
