@@ -8,8 +8,8 @@
 //// variable definitions  ////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
- unsigned long myChannelNumber = 2833649;         // your ThingsSpeakchannel ID
- const char * myWriteAPIKey = "QE46CI8UUR09UALY"; // your ThinsSpeak Write API Key
+ unsigned long myChannelNumber = 2835162;         // your ThingsSpeakchannel ID
+ const char * myWriteAPIKey = "1F78R4U7MXC7S633"; // your ThinsSpeak Write API Key
  float tilt = 0;
  float humidity =0;
  float temperature =0;
@@ -19,8 +19,8 @@
  double longtd = 0;
 
 // Wi-Fi credentials
- const char* ssid = "Bytelux";                  //your SSID name
- const char* password = "Kennedy7730";          //your password
+ const char* ssid = "Risk";                  //your SSID name
+ const char* password = "123456789";          //your password
 
  char datebf[13];
  char timebf[9];

@@ -305,7 +305,7 @@ void appendFile(fs::FS &fs, const char * path, const char * message) {
 void sendMessage(){
   gsmSerial.println("AT+CMGF=1");
   updateSerial();
-  gsmSerial.println("AT+CMGS=\"+254793036309\"");
+  gsmSerial.println("AT+CMGS=\"+254713352766\"");
   updateSerial();
   gsmSerial.print("Hello from BlackBox \n");  // enter your message here
   gsmSerial.print("Something Occured. Check location \n");  

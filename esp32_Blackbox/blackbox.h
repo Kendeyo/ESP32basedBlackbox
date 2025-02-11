@@ -37,7 +37,7 @@
 #define HUMIDITY_THRESHOLD 60
 #define ACCEL_THRESHOLD 40  // Acceleration threshold in m/s^2 (e.g., a crash)
 #define TILT_THRESHOLD1 90   // Tilt threshold in degrees
-#define TILT_THRESHOLD2 30   // Tilt threshold in degrees
+#define TILT_THRESHOLD2 10   // Tilt threshold in degrees
 #define DHTTYPE DHT22
 
 
