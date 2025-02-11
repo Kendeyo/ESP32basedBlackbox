@@ -1,5 +1,4 @@
-# Name
-ESP32basedBlackbox
+# ESP32_based_Blackbox
 
 ## Description
 A Wireless Blackbox for PSV monitoring, tailored for "Matatu" operators. The system monitors:
