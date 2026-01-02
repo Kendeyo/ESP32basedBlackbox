@@ -8,8 +8,8 @@
 //// variable definitions  ////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
- unsigned long myChannelNumber = 2835162;         // your ThingsSpeakchannel ID
- const char * myWriteAPIKey = "1F78R4U7MXC7S633"; // your ThinsSpeak Write API Key
+ unsigned long myChannelNumber = 123455;         // your ThingsSpeakchannel ID  //2833649
+ const char * myWriteAPIKey = "xxxxxx"; // your ThinsSpeak Write API Key  //QE46CI8UUR09UALY
  float tilt = 0;
  float humidity =0;
  float temperature =0;
@@ -19,8 +19,8 @@
  double longtd = 0;
 
 // Wi-Fi credentials
- const char* ssid = "Risk";                  //your SSID name
- const char* password = "123456789";          //your password
+ const char* ssid = "open";                  //your SSID name
+ const char* password = "12345678";          //your password
 
  char datebf[13];
  char timebf[9];
@@ -100,8 +100,11 @@ void sendToThingspeak(){
   ThingSpeak.setField(4, a.acceleration.z); // Acceleration Z
   ThingSpeak.setField(5, tilt);             // Tilt angle
   ThingSpeak.setField(6, vibrationState);   // Vibration sensor state          
-  ThingSpeak.setField(7, (float)lat);       // latitude
-  ThingSpeak.setField(8, (float)longtd);    // longitude
+  // ThingSpeak.setField(7, (float)lat);       // latitude
+  // ThingSpeak.setField(8, (float)longtd);    // longitude
+  ThingSpeak.setField(7, (float)-1.3823);       // latitude
+  ThingSpeak.setField(8, (float)36.7685);    // longitude
+  
 
 
   int responseCode = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);

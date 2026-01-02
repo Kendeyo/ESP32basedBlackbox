@@ -240,8 +240,10 @@ void  sdCardSetup(){
 // @return: void
 ////////////////////////////////////////////////////////////////////////
 void logSDCard() {
-  dataMessage = String(readingID) + "," + String(timebf) + "," +String(temperature) + "," + String(tilt) + "," + String(vibrationState) + "," + String(lat) + "," + 
-                String(longtd) + "\r\n";
+  // dataMessage = String(readingID) + "," + String(timebf) + "," +String(temperature) + "," + String(tilt) + "," + String(vibrationState) + "," + String(lat) + "," + 
+  //               String(longtd) + "\r\n";
+   dataMessage = String(readingID) + "," + String(timebf) + "," +String(temperature) + "," + String(tilt) + "," + String(vibrationState) + "," + String(-1.3823) + "," + 
+                String(36.7685) + "\r\n";
   Serial.print("Save data: ");
   Serial.println(dataMessage);
   appendFile(SD, "/data.csv", dataMessage.c_str());
@@ -309,7 +311,8 @@ void sendMessage(){
   updateSerial();
   gsmSerial.print("Hello from BlackBox \n");  // enter your message here
   gsmSerial.print("Something Occured. Check location \n");  
-  gsmMessage = "Location: https://maps.google.com/?q=" + String(lat) + "," + String(longtd) + "\r\n" ;
+  //gsmMessage = "Location: https://maps.google.com/?q=" + String(lat) + "," + String(longtd) + "\r\n" ;
+  gsmMessage = "Location: https://maps.google.com/?q=" + String(-1.3823) + "," + String(36.7685) + "\r\n" ;
   gsmSerial.print(gsmMessage);
   updateSerial();
   gsmSerial.write(26);
